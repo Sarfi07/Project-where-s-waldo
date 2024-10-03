@@ -1,0 +1,10 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.gamepageC {
+  height: 80vh;
+}

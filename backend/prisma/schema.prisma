@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game_Image {
+  id         String      @id @default(uuid())
+  name       String
+  size       Int
+  cloud_url  String
+  characters Character[]
+}
+
+model Character {
+  id        String     @id @default(uuid())
+  name      String
+  parent    Game_Image @relation(fields: [parent_id], references: [id])
+  parent_id String
+  x_s       Int
+  x_e       Int
+  y_s       Int
+  y_e       Int
+}
+
+model Player {
+  id          String    @id @default(uuid())
+  startTime   DateTime?
+  elapsedTime Float?
+  timings     Timing[]
+}
+
+model Timing {
+  id        String   @id @default(uuid())
+  player    Player   @relation(fields: [player_id], references: [id])
+  player_id String
+  name      String?
+  score     Float?
+  createdAt DateTime @default(now())
+}
