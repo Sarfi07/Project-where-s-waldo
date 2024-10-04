@@ -1,7 +1,1 @@
-'e992a0c4-79fc-4480-aea0-2b0d72053db1'
-
-insert into "Character" (id, parent_id, name, x_s, x_e, y_s, y_e) values
-(uuid_generate_v4(), 'e992a0c4-79fc-4480-aea0-2b0d72053db1',  'A',  36,  64,  64,  114 ),
-(uuid_generate_v4(), 'e992a0c4-79fc-4480-aea0-2b0d72053db1',  'B',  155,  193,  68,  128 ),
-(uuid_generate_v4(), 'e992a0c4-79fc-4480-aea0-2b0d72053db1',  'C',  289,  329,  308,  373 ),
-(uuid_generate_v4(), 'e992a0c4-79fc-4480-aea0-2b0d72053db1',  'D',  135,  200,  350,  408 );
+''
