@@ -39,7 +39,7 @@ const Gamepage = () => {
         setCurrentImage(data[0]);
 
         const foo = await fetch(
-          `http://localhost:3011/image/${data[0].id}/characters`
+          `${import.meta.env.VITE_BACKEND_URL}/image/${data[0].id}/characters`
         );
 
         if (!foo.ok) throw new Error("Failed to load characters");
