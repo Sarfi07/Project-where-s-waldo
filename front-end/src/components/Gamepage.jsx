@@ -149,38 +149,40 @@ const Gamepage = () => {
       const data = await response.json();
       if (data.found) {
         setResult("You got " + character.name);
-        setFoundItems((prevfoundItems) => {
-          const updatedFoundItems = [...prevfoundItems, character.id];
-          if (foundItems.length === 3) {
-            const userId = localStorage.getItem("userId");
 
-            fetch(`${import.meta.env.VITE_BACKEND_URL}/end-timer`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId,
-              }),
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                setTimeElapsed(data.elapsedTime);
-                console.log(data); // debugging
-                if (data.highestScore > data.elapsedTime) {
-                  setIsHighestScore(true);
-                  console.log(isHighestScore);
-                  console.log("Setting model open");
-                  setModelOpen(true);
-                } else {
-                  setIsHighestScore(false);
-                }
-              });
-            setGameover(true);
-          }
+        if (!foundItems.includes(character.id)) {
+          setFoundItems((prevfoundItems) => {
+            const updatedFoundItems = [...prevfoundItems, character.id];
+            if (foundItems.length === 3) {
+              const userId = localStorage.getItem("userId");
 
-          return updatedFoundItems;
-        });
+              fetch(`${import.meta.env.VITE_BACKEND_URL}/end-timer`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userId,
+                }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  setTimeElapsed(data.elapsedTime);
+                  console.log(data); // debugging
+                  if (data.highestScore > data.elapsedTime) {
+                    setIsHighestScore(true);
+                    console.log(isHighestScore);
+                    console.log("Setting model open");
+                    setModelOpen(true);
+                  } else {
+                    setIsHighestScore(false);
+                  }
+                });
+              setGameover(true);
+            }
+            return updatedFoundItems;
+          });
+        }
       } else setResult(null);
     } catch (err) {
       return new Error(err);
@@ -249,7 +251,7 @@ const Gamepage = () => {
         </p>
       )} */}
 
-      {items && items.length > 0 && (
+      {items && Array.isArray(items) && items.length > 0 && (
         <ItemList items={items} foundItems={foundItems} result={result} />
       )}
 
